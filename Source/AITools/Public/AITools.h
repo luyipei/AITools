@@ -23,5 +23,7 @@ private:
 
 	void Generate3DAsset();
 
+	void Generate3DAssetProgress(const FString& Prompt);
+
 #pragma endregion 3DAsset
 };

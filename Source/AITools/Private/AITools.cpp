@@ -64,6 +64,89 @@ void FAIToolsModule::AIToolsExtension(FMenuBuilder& MenuBuilder)
 
 void FAIToolsModule::Generate3DAsset()
 {
+	//弹出来unreal editor的对话框，提示输入提示词，然后点击确定或者取消
+	// 创建一个对话框窗口
+    TSharedRef<SWindow> DialogWindow = SNew(SWindow)
+        .Title(FText::FromString("Input Prompt"))
+        .ClientSize(FVector2D(400, 200))
+        .SupportsMinimize(false)
+        .SupportsMaximize(false);
+
+    // 创建一个文本框，用于输入提示词
+    TSharedPtr<SEditableTextBox> InputTextBox;
+    DialogWindow->SetContent(
+        SNew(SBox)
+        .WidthOverride(350)
+        .HeightOverride(150)
+        [
+            SNew(SVerticalBox)
+            + SVerticalBox::Slot()
+            .Padding(10)
+            .AutoHeight()
+            [
+                SNew(STextBlock)
+                .Text(FText::FromString("Please enter the prompt:"))
+            ]
+            + SVerticalBox::Slot()
+            .Padding(10)
+            .AutoHeight()
+            [
+                SAssignNew(InputTextBox, SEditableTextBox)
+            ]
+            + SVerticalBox::Slot()
+            .Padding(10)
+            .AutoHeight()
+            .HAlign(HAlign_Right)
+            [
+                SNew(SHorizontalBox)
+                + SHorizontalBox::Slot()
+                .AutoWidth()
+                .Padding(5, 0)
+                [
+                    SNew(SButton)
+                    .Text(FText::FromString("OK"))
+                    .OnClicked_Lambda([this,DialogWindow, InputTextBox]()
+                    {
+                        // 获取输入的提示词
+                        FString Prompt = InputTextBox->GetText().ToString();
+                        // 在这里处理提示词
+                        this->Generate3DAssetProgress(Prompt);
+
+                        // 关闭对话框
+                        DialogWindow->RequestDestroyWindow();
+                        return FReply::Handled();
+                    })
+                ]
+                + SHorizontalBox::Slot()
+                .AutoWidth()
+                .Padding(5, 0)
+                [
+                    SNew(SButton)
+                    .Text(FText::FromString("Cancel"))
+                    .OnClicked_Lambda([DialogWindow]()
+                    {
+                        // 关闭对话框
+                        DialogWindow->RequestDestroyWindow();
+                        return FReply::Handled();
+                    })
+                ]
+            ]
+        ]
+    );
+
+    // 显示对话框
+    FSlateApplication::Get().AddWindow(DialogWindow);
+}
+
+void FAIToolsModule::Generate3DAssetProgress(const FString& Prompt)
+{
+	UE_LOG(LogTemp, Log, TEXT("Prompt: %s"), *Prompt);
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Generate3DAssetProgress"));
+	}
+	//TODO
+	
 }
 
 #pragma endregion 3DAsset
