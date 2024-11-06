@@ -51,6 +51,32 @@ TSharedRef<FExtender> FAIToolsModule::ContentBrowserMenuAIToolsExtender(const TA
 
 void FAIToolsModule::AIToolsExtension(FMenuBuilder& MenuBuilder)
 {
+
+	MenuBuilder.AddSubMenu(
+		FText::FromString(TEXT("AIGC")), // Title text for the submenu
+		FText::FromString(TEXT("Generate assets using AIGC")), // Tooltip text
+		FNewMenuDelegate::CreateRaw(this, &FAIToolsModule::AddAIGCMenuEntries),
+		false, // Default to false, meaning the submenu is not open by default
+		FSlateIcon()
+	);
+
+
+	
+	
+	
+}
+
+void FAIToolsModule::AddAIGCMenuEntries(FMenuBuilder& MenuBuilder)
+{
+	MenuBuilder.AddMenuEntry
+	(
+		FText::FromString(TEXT("generate 2d sprite")), //Title text for menu entry
+		FText::FromString(TEXT("generate 2d sprite by aigc")), //Tooltip text
+		FSlateIcon(),
+		FExecuteAction::CreateRaw(this,&FAIToolsModule::Generate3DAsset)
+		
+	);
+
 	MenuBuilder.AddMenuEntry
 	(
 		FText::FromString(TEXT("generate 3d asset")), //Title text for menu entry
@@ -59,6 +85,15 @@ void FAIToolsModule::AIToolsExtension(FMenuBuilder& MenuBuilder)
 		FExecuteAction::CreateRaw(this,&FAIToolsModule::Generate3DAsset)
 		
 	);
+
+	MenuBuilder.AddMenuEntry
+	(
+		FText::FromString(TEXT("generate 2d texture")), //Title text for menu entry
+		FText::FromString(TEXT("generate 2d texture by aigc")), //Tooltip text
+		FSlateIcon(),
+		FExecuteAction::CreateRaw(this,&FAIToolsModule::Generate3DAsset)
+	);
+	
 }
 
 
@@ -141,10 +176,6 @@ void FAIToolsModule::Generate3DAsset()
 void FAIToolsModule::Generate3DAssetProgress(const FString& Prompt)
 {
 	UE_LOG(LogTemp, Log, TEXT("Prompt: %s"), *Prompt);
-	if (GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Generate3DAssetProgress"));
-	}
 	//TODO
 	
 }

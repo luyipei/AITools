@@ -20,6 +20,7 @@ private:
 	TSharedRef<FExtender> ContentBrowserMenuAIToolsExtender(const TArray<FString>& SelectedPaths);
 
 	void AIToolsExtension(FMenuBuilder& MenuBuilder);
+	void AddAIGCMenuEntries(FMenuBuilder& MenuBuilder);
 
 	void Generate3DAsset();
 
