@@ -62,8 +62,6 @@ void UBertChineseTokenizer::TokenizerTextProgress(FString Sentence, TArray<int>&
 
 	// 分词
 	TArray<FString> Tokens;
-	// Sentence.ParseIntoArray(Tokens, TEXT(" "), true);
-	
 	for (int32 i = 0; i < Sentence.Len(); i++)
 	{
 		FString Character = FString(1, &Sentence[i]);
