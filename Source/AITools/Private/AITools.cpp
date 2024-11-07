@@ -3,6 +3,8 @@
 #include "AITools.h"
 
 #include "ContentBrowserModule.h"
+#include "onnxruntime_cxx_api.h"
+#include "Test/OnnxManagerT.h"
 
 
 #define LOCTEXT_NAMESPACE "FAIToolsModule"
@@ -21,6 +23,8 @@ void FAIToolsModule::StartupModule()
 	FContentBrowserMenuExtender_SelectedPaths ContentBrowserMenuExtender_SelectedPaths_AITools;
 	ContentBrowserMenuExtender_SelectedPaths_AITools.BindRaw(this,&FAIToolsModule::ContentBrowserMenuAIToolsExtender);
 	AssetContextMenuExtenders.Add(ContentBrowserMenuExtender_SelectedPaths_AITools);
+
+	OnnxTest();
 	
 }
 
@@ -30,6 +34,21 @@ void FAIToolsModule::ShutdownModule()
 	// we call this function before unloading the module.
 }
 
+void FAIToolsModule::OnnxTest()
+{
+	Ort::Env* Env = new Ort::Env(ORT_LOGGING_LEVEL_WARNING, "UnrealONNX");
+
+	// Load the ONNX model
+	FString modelPath = FPaths::Combine(FPaths::ProjectPluginsDir(), TEXT("AITools/Resources/onnx/bert-base-chinese.onnx"));
+	Ort::SessionOptions sessionOptions;
+	sessionOptions.SetIntraOpNumThreads(1);
+	
+	// Convert FString to const wchar_t*
+	const wchar_t* modelPathWChar = *modelPath;
+	
+	// Create the ONNX session
+	Ort::Session* Session = new Ort::Session(*Env, modelPathWChar, sessionOptions);
+}
 
 #pragma region 3DAsset
 

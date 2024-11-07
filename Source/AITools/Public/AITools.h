@@ -12,8 +12,13 @@ public:
 	/** IModuleInterface implementation */
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
+	
+	UFUNCTION()
+	void OnnxTest();
 
 private:
+
+	
 #pragma region 3DAsset
 	
 

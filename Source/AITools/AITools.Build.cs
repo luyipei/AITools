@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
+using System.IO;
 
 public class AITools : ModuleRules
 {
@@ -8,9 +9,21 @@ public class AITools : ModuleRules
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
+		// 获取插件目录
+		string PluginPath = Path.GetFullPath(Path.Combine(ModuleDirectory, "../../"));
+
+		// 添加 ONNX Runtime 的头文件路径
+		PublicIncludePaths.Add(Path.Combine(PluginPath, "ThirdParty", "onnxruntime", "include"));
+
+		// 添加 ONNX Runtime 的库文件路径
+		PublicAdditionalLibraries.Add(Path.Combine(PluginPath, "ThirdParty", "onnxruntime", "lib", "onnxruntime.lib"));
+		
+		
+		
 		PublicIncludePaths.AddRange(
 			new string[] {
 				// ... add public include paths required here ...
+				Path.Combine(ModuleDirectory, "ThirdParty", "onnxruntime", "include")
 			}
 			);
 				
@@ -18,8 +31,12 @@ public class AITools : ModuleRules
 		PrivateIncludePaths.AddRange(
 			new string[] {
 				// ... add other private include paths required here ...
+				//Path.Combine(ModuleDirectory, "ThirdParty", "onnxruntime", "lib", "onnxruntime.lib")
 			}
 			);
+		
+		// 添加 ONNX Runtime 的动态库路径
+		RuntimeDependencies.Add(Path.Combine(PluginPath, "ThirdParty", "onnxruntime", "lib", "onnxruntime.dll"));
 			
 		
 		PublicDependencyModuleNames.AddRange(
