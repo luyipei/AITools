@@ -55,6 +55,8 @@ public class AITools : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"EditorSubsystem",
+				"UnrealEd" // 添加这一行
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
