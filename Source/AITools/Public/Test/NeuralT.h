@@ -3,16 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EditorSubsystem.h"
-#include "TokenizerT.generated.h"
+#include "UObject/Object.h"
+#include "onnxruntime_cxx_api.h"
+
+#include "NeuralT.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class AITOOLS_API UTokenizerT : public UEditorSubsystem
+class AITOOLS_API UNeuralT : public UObject
 {
 	GENERATED_BODY()
 public:
-	void BertChineseTokenizerTest();
+
+	void OnnxText();
 };

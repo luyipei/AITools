@@ -17,6 +17,7 @@ public class AITools : ModuleRules
 
 		// 添加 ONNX Runtime 的库文件路径
 		PublicAdditionalLibraries.Add(Path.Combine(PluginPath, "ThirdParty", "onnxruntime", "lib", "onnxruntime.lib"));
+		RuntimeDependencies.Add(Path.Combine(PluginPath, "ThirdParty", "onnxruntime", "lib", "onnxruntime_providers_cuda.lib"));
 		
 		
 		
@@ -35,8 +36,11 @@ public class AITools : ModuleRules
 			}
 			);
 		
-		// 添加 ONNX Runtime 的动态库路径
-		RuntimeDependencies.Add(Path.Combine(PluginPath, "ThirdParty", "onnxruntime", "lib", "onnxruntime.dll"));
+		// 添加公共DLL路径
+		//PublicDelayLoadDLLs.Add("onnxruntime.dll");
+
+		// 确保DLL在运行时被复制到输出目录
+		RuntimeDependencies.Add("$(BinaryOutputDir)/onnxruntime.dll", Path.Combine(PluginPath, "ThirdParty", "onnxruntime", "lib",  "onnxruntime.dll"));
 			
 		
 		PublicDependencyModuleNames.AddRange(

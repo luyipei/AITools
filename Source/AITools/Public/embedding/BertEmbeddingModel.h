@@ -14,7 +14,8 @@
 
 struct BertInputData : public NetworkInputData
 {
-	
+	TArray<int64> InputIds;
+	TArray<int64> AttentionMask;
 };
 
 struct BertOutputData : public NetworkOutputData

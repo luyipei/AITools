@@ -14,12 +14,12 @@
 
 struct NetworkInputData
 {
-	
+	virtual ~NetworkInputData() = default; // 添加虚析构函数
 };
 
 struct NetworkOutputData
 {
-	
+	virtual ~NetworkOutputData() = default; // 添加虚析构函数
 };
 
 
@@ -33,9 +33,9 @@ class AITOOLS_API UNeuralNetwork : public UObject
 public:
 	~UNeuralNetwork();
 	
-	void InitNetwork();
+	virtual void InitNetwork();
 
-	void InitNetworkByModelPath(FString& Path);
+	virtual void InitNetworkByModelPath(FString& Path);
 	
 	virtual void Forward(const NetworkInputData* InputData, NetworkOutputData* OutputData);
 
