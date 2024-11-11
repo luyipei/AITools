@@ -12,21 +12,14 @@
  * 
  */
 
-struct BertInputData : public NetworkInputData
-{
-	TArray<int64> InputIds;
-	TArray<int64> AttentionMask;
-};
 
-struct BertOutputData : public NetworkOutputData
-{
-	
-};
 UCLASS()
 class AITOOLS_API UBertEmbeddingModel : public UNeuralNetwork
 {
 	GENERATED_BODY()
 
 public:
-	virtual void Forward(const NetworkInputData* InputData, NetworkOutputData* OutputData) override;
+	virtual void Forward(TArray<UTensor<double>>& InputData, UTensor<double>& OutputData) override;
+
+	virtual void Forward(TArray<UTensor<int64>>& InputData, UTensor<float>& OutputData) override;
 };

@@ -18,4 +18,6 @@ class AITOOLS_API UNeuralT : public UObject
 public:
 
 	void OnnxText();
+
+	void BertTest();
 };

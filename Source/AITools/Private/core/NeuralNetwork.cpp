@@ -5,7 +5,7 @@
 
 void UNeuralNetwork::InitNetwork()
 {
-	if (ModelPath==FString(""))
+	if (ModelPath.IsEmpty())
 	{
 		ModelPath=FPaths::Combine(FPaths::ProjectPluginsDir(), TEXT("AITools/Resources/onnx/bert-base-chinese.onnx"));
 	}
@@ -26,7 +26,11 @@ void UNeuralNetwork::InitNetworkByModelPath(FString& Path)
 	InitNetwork();
 }
 
-void UNeuralNetwork::Forward(const NetworkInputData* InputData, NetworkOutputData* OutputData)
+void UNeuralNetwork::Forward(TArray<UTensor<double>>& InputData, UTensor<double>& OutputData)
+{
+}
+
+void UNeuralNetwork::Forward(TArray<UTensor<int64>>& InputData, UTensor<float>& OutputData)
 {
 }
 
